@@ -32,6 +32,13 @@ If you don't want to create a development app for each account, you can add each
 
 ## Python Package Requirements
 
+Create a virtual environment so the installed packages don't pollute your system
+
+```shell
+python3 -m venv env
+. env/bin/activate
+```
+
 Install requirements from 'requirements.txt' file.
 
 ```shell
