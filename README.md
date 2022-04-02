@@ -2,7 +2,7 @@
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-**DM tumtumtree#5600 on Discord if you have any questions regarding setup/errors.**
+**Message the bot channel on Discord if you have any questions regarding setup/errors.**
 
 ## About
 
@@ -58,7 +58,7 @@ pip3 install -r requirements.txt
 
 ## Get Started
 
-Create a file called '.env'
+Make a copy of `.env_TEMPLATE` called `.env`.
 
 Put in the following content:
 
