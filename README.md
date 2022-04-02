@@ -2,6 +2,8 @@
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+**DM tumtumtree#5600 on Discord if you have any questions regarding setup/errors.**
+
 ## About
 
 This is a script to draw a JPG onto r/place (<https://www.reddit.com/r/place/>).
@@ -30,9 +32,13 @@ Steps:
 
 If you don't want to create a development app for each account, you can add each username as a developer in the developer app settings. You will need to duplicate the client ID and secret in .env, though.
 
+![Where you will find the app client ID and secret key](reddit-app-screenshot.png)
+
 ## Python Package Requirements
 
-Create a virtual environment so the installed packages don't pollute your system
+**Optional**
+Create a virtual environment so the installed packages don't pollute your system.
+This step is optional. It just helps you organize your Python packages better.
 
 ```shell
 python3 -m venv env
@@ -56,7 +62,7 @@ Create a file called '.env'
 
 Put in the following content:
 
-**Note:** The last four coordinate variables are already set. Do not change them.
+**Note:** The last four coordinate variables are already configured for the pan-UC flag. Do not change them.
 
 ```text
 ENV_PLACE_USERNAME='["developer_username"]'
