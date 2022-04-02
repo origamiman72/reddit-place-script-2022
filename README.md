@@ -36,7 +36,12 @@ Create a virtual environment so the installed packages don't pollute your system
 
 ```shell
 python3 -m venv env
+
+# Linux/macOS users, run this
 . env/bin/activate
+
+# Windows users, run this
+env\Scripts\activate.bat
 ```
 
 Install requirements from 'requirements.txt' file.
@@ -50,6 +55,8 @@ pip3 install -r requirements.txt
 Create a file called '.env'
 
 Put in the following content:
+
+**Note:** The last four coordinate variables are already set. Do not change them.
 
 ```text
 ENV_PLACE_USERNAME='["developer_username"]'
