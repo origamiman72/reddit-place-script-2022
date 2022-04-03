@@ -1,4 +1,4 @@
-# Reddit Place Script 2022
+# Reddit Place Script 2022 for cal
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
@@ -34,7 +34,7 @@ If you don't want to create a development app for each account, you can add each
 ## Clone This Project!
 In your terminal, `cd` into any directory you like, then run
 ```
-git clone https://github.com/jc65536/reddit-place-script-2022.git
+git clone https://github.com/origamiman72/reddit-place-script-2022.git
 ```
 
 Go into the project directory with cd:
