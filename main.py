@@ -480,6 +480,7 @@ def get_last_modified_commit() -> str:
     return subprocess.run(["git", "log", "-1", "--format=%H", "image.png"], capture_output=True, text=True).stdout
 
 def pull_image(scheduler: sched.scheduler):
+    print("Attempting to pull image...")
     global last_modified_commit
 
     if (last_modified_commit is None):
@@ -490,8 +491,11 @@ def pull_image(scheduler: sched.scheduler):
     commit_after_pull = get_last_modified_commit()
     if commit_after_pull != last_modified_commit:
         load_image()
+        print("Load image called!")
         last_modified_commit = commit_after_pull
-        scheduler.enter(1800, 1, pull_image, (scheduler,))
+    else:
+        print("Not modified!")
+    scheduler.enter(scheduler_delay, 1, pull_image, (scheduler,))
     
 
 # # # # #  MAIN # # # # # #
@@ -578,8 +582,10 @@ ENV_C_START='["0"]\'"""
         delay_between_launches_seconds = 3
 
     scheduler = sched.scheduler(time.time, time.sleep)
-    scheduler.enter(1800, 1, pull_image, (scheduler,))
-    scheduler.run()
+    scheduler_delay = 1800
+    scheduler.enter(scheduler_delay, 1, pull_image, (scheduler,))
+    thread0 = threading.Thread(target=scheduler.run)
+    thread0.start()
 
     # launch a thread for each account specified in .env
     for i in range(num_credentials):
