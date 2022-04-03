@@ -17,6 +17,8 @@ This is a script to draw a JPG onto r/place (<https://www.reddit.com/r/place/>).
 
 ## Requirements
 
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+    - Needed for the auto-pull image feature
 - [Python 3](https://www.python.org/downloads/)
 - [A Reddit App Client ID and App Secret Key](https://www.reddit.com/prefs/apps)
 
@@ -62,7 +64,8 @@ Make a copy of `.env_TEMPLATE` called `.env`.
 
 Put in the following content:
 
-**Note:** The last four coordinate variables are already configured for the pan-UC flag. Do not change them.
+**Note:** The `ENV_DRAW_X_START` and `ENV_DRAW_Y_START` variables are already
+configured for the pan-UC flag. Do not change them.
 
 ```text
 ENV_PLACE_USERNAME='["developer_username"]'
@@ -95,7 +98,7 @@ ENV_C_START='["0"]'
 python3 main.py
 ```
 
-## Multiple Workers
+## Multiple Bots
 
 If you want two threads drawing the image at once you could have a setup like this:
 
@@ -130,11 +133,8 @@ ENV_THREAD_DELAY='0'
 ENV_UNVERIFIED_PLACE_FREQUENCY='True'
 ```
 
-- ENV_THREAD_DELAY Adds a delay between starting a new thread. Can be used to avoid ratelimiting
+- ENV_THREAD_DELAY Adds a delay between starting a new thread. Can be used to spread out places over the 5-minute rate limit.
 - ENV_UNVERIFIED_PLACE_FREQUENCY is for setting the pixel place frequency to the unverified account frequency (20 minutes)
 
 - Transparency can be achieved by using the RGB value (69, 42, 0) in any part of your image
 - If you'd like, you can enable Verbose Mode by adding --verbose to "python main.py". This will output a lot more information, and not neccessarily in the right order, but it is useful for development and debugging.
-## Developing
-The nox CI job will run flake8 on the code. You can also do this locally by pip installing nox on your system and running 
-`nox` in the repository directory.
