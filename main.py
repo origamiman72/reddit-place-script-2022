@@ -11,6 +11,8 @@ import logging
 import colorama
 import argparse
 import sys
+import subprocess
+import sched
 from io import BytesIO
 from websocket import create_connection
 from requests.auth import HTTPBasicAuth
@@ -202,6 +204,7 @@ def get_unset_pixel(boardimg, x, y):
     pixel_y_start = int(os.getenv("ENV_DRAW_Y_START"))
     pix2 = Image.open(boardimg).convert("RGB").load()
     num_loops = 0
+    lock.acquire()
     while True:
         x += 1
 
@@ -232,6 +235,7 @@ def get_unset_pixel(boardimg, x, y):
                 break
             else:
                 print("TransparrentPixel")
+    lock.release()
     return x, y, new_rgb
 
 
@@ -273,7 +277,9 @@ def load_image():
 
     print("Loading image from " + image_path)
     im = Image.open(image_path)
+    lock.acquire()
     pix = im.load()
+    lock.release()
     logging.info(f"Loaded image size: {im.size}")
     image_width, image_height = im.size
 
@@ -470,6 +476,24 @@ def task(credentials_index):
             break
 
 
+def get_last_modified_commit() -> str:
+    return subprocess.run(["git", "log", "-1", "--format=%H", "image.png"], capture_output=True, text=True).stdout
+
+def pull_image(scheduler: sched.scheduler):
+    global last_modified_commit
+
+    if (last_modified_commit is None):
+        last_modified_commit = get_last_modified_commit()
+
+    subprocess.run(["git", "pull"], capture_output=True, text=True)
+
+    commit_after_pull = get_last_modified_commit()
+    if commit_after_pull != last_modified_commit:
+        load_image()
+        last_modified_commit = commit_after_pull
+        scheduler.enter(1800, 1, pull_image, (scheduler,))
+    
+
 # # # # #  MAIN # # # # # #
 
 
@@ -529,6 +553,11 @@ ENV_C_START='["0"]\'"""
     image_width = None
     image_height = None
 
+    lock = threading.Lock()
+
+    # Last commit hash in which image.png was modified
+    last_modified_commit = None
+
     # place a pixel immediately
     # first_run = True
     first_run_counter = 0
@@ -547,6 +576,10 @@ ENV_C_START='["0"]\'"""
         delay_between_launches_seconds = int(os.getenv("ENV_THREAD_DELAY"))
     else:
         delay_between_launches_seconds = 3
+
+    scheduler = sched.scheduler(time.time, time.sleep)
+    scheduler.enter(1800, 1, pull_image, (scheduler,))
+    scheduler.run()
 
     # launch a thread for each account specified in .env
     for i in range(num_credentials):
