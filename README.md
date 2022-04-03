@@ -137,10 +137,12 @@ This is useful if you want different threads drawing different parts of the imag
 ```text
 ENV_THREAD_DELAY='0'
 ENV_UNVERIFIED_PLACE_FREQUENCY='True'
+ENV_DELAY='60'
 ```
 
 - ENV_THREAD_DELAY Adds a delay between starting a new thread. Can be used to spread out places over the 5-minute rate limit.
 - ENV_UNVERIFIED_PLACE_FREQUENCY is for setting the pixel place frequency to the unverified account frequency (20 minutes)
+- ENV_DELAY causes a bot to wait for a random amount of time between 0 seconds and the specified number of seconds before placing a tile.
 
 - Transparency can be achieved by using the RGB value (69, 42, 0) in any part of your image
 - If you'd like, you can enable Verbose Mode by adding --verbose to "python main.py". This will output a lot more information, and not neccessarily in the right order, but it is useful for development and debugging.
