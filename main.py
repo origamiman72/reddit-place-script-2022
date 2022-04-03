@@ -121,7 +121,7 @@ def set_pixel_and_check_ratelimit(
     # code.interact(local=locals())
 
     # Reddit returns time in ms and we need seconds, so divide by 1000
-    return waitTime / 1000 + random.randint(0, 4)
+    return waitTime / 1000 + random.randint(0, 20)
 
 
 def get_board(access_token_in):
