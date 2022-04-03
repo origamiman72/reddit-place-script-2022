@@ -8,18 +8,13 @@
 
 This is a script to draw a JPG onto r/place (<https://www.reddit.com/r/place/>).
 
-## Features
-
-- Support for multiple accounts
-- Determines the cooldown time remaining for each account
-- Detects existing matching pixels on the r/place map and skips them
-- Automatically converts colors to the r/place color palette
-
 ## Requirements
 
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
     - Needed for the auto-pull image feature
+    - Run `git --version` in the terminal to check that you have it installed
 - [Python 3](https://www.python.org/downloads/)
+    - Run `python3 --version` in the terminal to check that you have it installed
 - [A Reddit App Client ID and App Secret Key](https://www.reddit.com/prefs/apps)
 
 ## How to Get App Client ID and App Secret Key
@@ -35,6 +30,17 @@ Steps:
 If you don't want to create a development app for each account, you can add each username as a developer in the developer app settings. You will need to duplicate the client ID and secret in .env, though.
 
 ![Where you will find the app client ID and secret key](reddit-app-screenshot.png)
+
+## Clone This Project!
+In your terminal, `cd` into any directory you like, then run
+```
+git clone https://github.com/jc65536/reddit-place-script-2022.git
+```
+
+Go into the project directory with cd:
+```
+cd reddit-place-script-2022
+```
 
 ## Python Package Requirements
 
@@ -60,9 +66,9 @@ pip3 install -r requirements.txt
 
 ## Get Started
 
-Make a copy of `.env_TEMPLATE` called `.env`.
+Make a copy of `.env_TEMPLATE` called `.env`, and place it in the project directory.
 
-Put in the following content:
+Put in the following contents:
 
 **Note:** The `ENV_DRAW_X_START` and `ENV_DRAW_Y_START` variables are already
 configured for the pan-UC flag. Do not change them.
