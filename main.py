@@ -350,6 +350,14 @@ def task(credentials_index):
 
             # log next time until drawing
             time_until_next_draw = next_pixel_placement_time - current_timestamp
+
+            # Check if bot is banned
+            time_until_next_draw = next_pixel_placement_time - current_timestamp
+            if time_until_next_draw > 10000:
+                current_name = str(json.loads(os.getenv("ENV_PLACE_USERNAME"))[credentials_index])
+                logging.info(f"Bot banned: {current_name}")
+                exit(1)
+
             new_update_str = (
                 str(time_until_next_draw) + " seconds until next pixel is drawn"
             )
